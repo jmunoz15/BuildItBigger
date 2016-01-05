@@ -17,11 +17,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    productFlavors{
-        paid{
+    dexOptions {
+        javaMaxHeapSize "2g"
+    }
+    productFlavors {
+        paid {
             applicationId "com.udacity.gradle.builditbigger.paid"
         }
-        free{
+        free {
             applicationId "com.udacity.gradle.builditbigger.free"
         }
     }
@@ -29,9 +32,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.1'
     freeCompile 'com.google.android.gms:play-services:7.3.0'
-    compile project (':jokeslibrary')
-    compile project (':jokesandroidlibrary')
+    compile project(':jokesandroidlibrary')
 
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile project(path: ':backend', configuration: 'android-endpoints')
 }

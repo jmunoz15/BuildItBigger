@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.Joker;
 import com.nanodegree.jmunoz.jokesandroidlibrary.JokesActivity;
 
 
@@ -43,10 +42,17 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view){
-        Joker joker = new Joker();
-        Intent intent = new Intent(this, JokesActivity.class);
-        intent.putExtra(Intent.EXTRA_TEXT, joker.getJoke());
-        startActivity(intent);
+
+        new JokeAsyncTask() {
+            @Override
+            protected void onPostExecute(String response) {
+                super.onPostExecute(response);
+                Intent intent = new Intent(MainActivity.this, JokesActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, response);
+                startActivity(intent);
+            }
+        }.execute();
+
     }
 
 
